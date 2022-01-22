@@ -25,6 +25,7 @@ int main(void)
     assign = arithmetic = false;
     x = y = z = 0.0;
     r = 0.0;
+    printf("> ");    /* print prompt */
     while ((type = getop(s)) != EOF) {
         switch (type) {
             case NUMBER:
@@ -63,34 +64,41 @@ int main(void)
             case '\n':
                 r = pop();
                 printf("\t%.8g\n", r);
+                printf("> ");    /* print prompt */
                 break;
 
             case 'h':    /* show help info */
                 helpinfo();
+                printf("> ");    /* print prompt */
                 break;
 
             case 'p':    /* print top element of the stack */
                 if (get_top_element())
                     printf("\n\ttop element of the stack: %.8g\n", get_top_element());
+                printf("> ");    /* print prompt */
                 break;
 
             case 'd':    /* duplicate top element */
                 if (duplicate_top_elem())
                     printf("\n\ttop element has been duplicated\n");
+                printf("> ");    /* print prompt */
                 break;
 
             case 's':    /* swap the top two elements */
                 if (swap_top_elem())
                     printf("\n\tthe top two elements have been swapped\n");
+                printf("> ");    /* print prompt */
                 break;
 
             case 'c':    /* clear the stack */
                 clear_stack();
                 printf("\n\tthe stack is clear\n");
+                printf("> ");    /* print prompt */
                 break;
 
             case 'a':    /* print the stack */
                 print_stack();
+                printf("> ");    /* print prompt */
                 break;
 
             case 'i':    /* sin() */
@@ -111,8 +119,10 @@ int main(void)
                     y = pop();
                     x = pop();
                     if (x == 0 && y < 0 ||
-                            x < 0 && y-(int)y != 0)    /* verify if y is an integer */
+                            x < 0 && y-(int)y != 0)  { /* verify if y is an integer */
                         printf("error:  pow(x,y) error\n");
+                        printf("> ");    /* print prompt */
+                    }
                     push(pow(x, y));
                 }
                 break;
@@ -124,6 +134,7 @@ int main(void)
                 printf("\tz:  %g\n", z);
                 printf("\nmost recently printed variables:\n");
                 printf("\tr:  %g\n", r);
+                printf("> ");    /* print prompt */
                 break;
 
             case '=':    /* for assignment of variables */
@@ -138,6 +149,7 @@ int main(void)
                 if (assign) {
                     x = pop();
                     printf("\n\tx:  %g\n", x);
+                    printf("> ");    /* print prompt */
                     assign = false;
                 } else if (arithmetic) {
                     push(x);
@@ -149,6 +161,7 @@ int main(void)
                 if (assign) {
                     y = pop();
                     printf("\n\ty:  %g\n", y);
+                    printf("> ");    /* print prompt */
                     assign = false;
                 } else if (arithmetic) {
                     push(y);
@@ -160,6 +173,7 @@ int main(void)
                 if (assign) {
                     z = pop();
                     printf("\n\tz:  %g\n", z);
+                    printf("> ");    /* print prompt */
                     assign = false;
                 } else if (arithmetic) {
                     push(z);
@@ -168,8 +182,10 @@ int main(void)
                 break;
 
             case 'r':    /* for most recently printed variables */
-                if (assign)
+                if (assign) {
                     printf("error: can't not assign the most recently printed variables\n");
+                    printf("> ");    /* print prompt */
+                }
                 else if (arithmetic) {
                     push(r);
                     arithmetic = false;
@@ -181,9 +197,11 @@ int main(void)
 
             default:
                 printf("\n\terror: unknown command %s\n", s);
+                printf("> ");    /* print prompt */
                 break;
         }
     }
+    printf("Calculator exit!\n");
     return 0;
 }
 

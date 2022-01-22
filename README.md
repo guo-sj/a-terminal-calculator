@@ -11,5 +11,6 @@ $ ./tl
 ```
 
 TODO:
-1. Base conversions
+1. ~~add prompt `>`~~
+2. Base conversions
 
